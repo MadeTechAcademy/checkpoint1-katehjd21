@@ -20,7 +20,7 @@ def print_duties():
         print("{0}\n".format(duty))
 
 
-def write_duties_to_html(file_path="duties.html"):
+def write_duties_to_html(duties, file_path="duties.html"):
     duties_html = open(file_path, "w")
 
     duties_html.write("""<html>
@@ -33,7 +33,7 @@ def write_duties_to_html(file_path="duties.html"):
 </header>
 <ul>
 """)
-    for duty in duties_list:
+    for duty in duties:
             duties_html.write(f"  <li>{duty}</li>\n")
 
     duties_html.write("""</ul>
@@ -52,7 +52,7 @@ def prompt_user_choice():
     """)
     if x == '1':
         print_duties()
-        write_duties_to_html()
+        write_duties_to_html(duties_list)
 
 if __name__=="__main__":
     prompt_user_choice()

@@ -54,7 +54,7 @@ def test_input_one_prints_duties(monkeypatch, capsys):
 
 # Test that when user presses any other key, nothing is displayed
 
-def test_input_not_one(monkeypatch, capsys):
+def test_input_not_one_does_not_print_duties(monkeypatch, capsys):
     monkeypatch.setattr("builtins.input", lambda _: '9')
 
     prompt_user_choice()
@@ -70,12 +70,38 @@ def test_input_not_one(monkeypatch, capsys):
 def test_all_duties_written_in_html_file(tmp_path):
     test_duties_file = tmp_path / "test_duties.html"
 
-    write_duties_to_html(file_path=test_duties_file)
+    write_duties_to_html(duties_list, file_path=test_duties_file)
 
     duties_file_content = test_duties_file.read_text()
 
     for duty in duties_list:
         assert duty in duties_file_content
+
+def test_write_duties_creates_correct_html_file(tmp_path):
+     
+    test_duties_list = ["Duty 1 Script and code in at least one general purpose language and at least one domain-specific language to orchestrate infrastructure, follow test driven development and ensure appropriate test coverage.", 
+        "Duty 2 Initiate and facilitate knowledge sharing and technical collaboration with teams and individuals, with a focus on supporting development of team members.", 
+        "Duty 3 Engage in productive pair/mob programming to underpin the practice of peer review."]
+     
+    test_duties_file = tmp_path / "test_duties.html"
+
+    write_duties_to_html(test_duties_list, file_path=test_duties_file)
+
+    duties_html_content = test_duties_file.read_text()
+
+# Check html content structure 
+    assert "<html>" in duties_html_content
+# Ensure unordered list has an opening and closing tag
+    assert "<ul>" in duties_html_content
+    assert "</ul>" in duties_html_content
+# Check each duty appears in a list tag
+    for duty in test_duties_list:
+        assert f"<li>{duty}</li>" in duties_html_content
+        
+# Ensure number of list tags is equal to number of duties 
+    assert duties_html_content.count("<li>") == len(test_duties_list)
+
+
 
   
 
