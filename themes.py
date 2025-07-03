@@ -15,9 +15,10 @@ x2 = [
 ]#list of duties
 def go(file_path="duties.txt"):
      with open(file_path, "w") as duties_file:
-        for y in x2:
+        for y in x2[:-1]:
             duties_file.write("{0}\n\n".format(y))
             print(f"Duties have been written to {file_path}.")
+            print("{0}\n".format(y))
 
 def prompt_user_choice():
     x = input("""
