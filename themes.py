@@ -1,3 +1,5 @@
+from ThemesClass import Theme
+
 duties_list = [
     "Duty 1 Script and code in at least one general purpose language and at least one domain-specific language to orchestrate infrastructure, follow test driven development and ensure appropriate test coverage.",
     "Duty 2 Initiate and facilitate knowledge sharing and technical collaboration with teams and individuals, with a focus on supporting development of team members.",
@@ -13,6 +15,15 @@ duties_list = [
     "Duty 12 Look to automate any manual tasks that are repeated, often using APIs.",
     "Duty 13 Accept ownership of changes; embody the DevOps culture of 'you build it, you run it', with a relentless focus on the user experience.",
 ]#list of duties
+
+themes_dict = {
+    "2": Theme("Bootcamp", [1, 2, 3, 4, 13]),
+    "3": Theme("Automate!", [5, 7, 10]),
+    "4": Theme("Houston, Prepare to Launch", [6, 7, 10, 12]),
+    "5": Theme("Going Deeper", [11]),
+    "6": Theme("Assemble!", [8]),
+    "7": Theme("Call Security", [9]),
+}
 
 
 def print_duties():
@@ -43,16 +54,55 @@ def write_duties_to_html(duties, file_path="duties.html"):
 
     print(f"Duties have been written to {file_path}.")
 
+# def get_associated_duties(theme_number):
+#      associated_duties = []
+
+#      if theme_number not in themes_dict:
+#         return associated_duties
+#      else:
+#         _, associated_duty_numbers = themes_dict[theme_number]
+        
+        
+#         for duty in duties_list:
+#             for num in associated_duty_numbers:
+#                 if duty.startswith(f"Duty {num}"):
+#                     associated_duties.append(duty)
+#                     break
+                
+#         return associated_duties
+          
 
 def prompt_user_choice():
     x = input("""
     Welcome to apprentice themes!\n
     Press (1) to list all the duties\n
+              
+    Or choose a theme to see it's associated duties:
+              
+    2) Bootcamp
+    3) Automate!
+    4) Houston, Prepare to Launch
+    5) Going Deeper
+    6) Assemble!
+    7) Call Security
+              
     Enter your choice:
     """)
     if x == '1':
         print_duties()
         write_duties_to_html(duties_list)
+    elif x in themes_dict:
+        theme = themes_dict[x]
+        duties_for_theme = theme.get_associated_duties(duties_list)
+        print(f"\nDuties for theme '{theme.name}':")
+        for duty in duties_for_theme:
+            print(f"- {duty}")
+        
+        theme_and_associated_duties = f"{theme.name.lower().replace(' ', '_')}.html"
+        write_duties_to_html(duties_for_theme, theme_and_associated_duties)
+            
+        
+         
 
 if __name__=="__main__":
     prompt_user_choice()
