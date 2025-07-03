@@ -13,11 +13,12 @@ x2 = [
     "Duty 12 Look to automate any manual tasks that are repeated, often using APIs.",
     "Duty 13 Accept ownership of changes; embody the DevOps culture of 'you build it, you run it', with a relentless focus on the user experience.",
 ]#list of duties
+
 def go():
     for y in x2:
         print("{0}\n".format(y))
 
-if __name__=="__main__":
+def prompt_user_choice():
     x = input("""
     Welcome to apprentice themes!\n
     Press (1) to list all the duties\n
@@ -25,4 +26,7 @@ if __name__=="__main__":
     """)
     if x == '1':
         go()
+
+if __name__=="__main__":
+    prompt_user_choice()
    

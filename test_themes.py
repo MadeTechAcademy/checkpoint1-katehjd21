@@ -1,14 +1,17 @@
-from themes import x2
-def testIt():
-    # Test number of duties is correct
+from themes import x2, go, prompt_user_choice
+# Test number of duties is correct
+def test_length_of_duties():
     assert len(x2)>10, f"Expected more than 10 duties in x2, but got {len(x2)}"
     assert len(x2) == 13, f"Expected 13 duties in x2, but got {len(x2)}"
 
-    # Test each duty is of type string
+# Test each duty is of type string
+def test_duties_are_of_type_string():
     for duty in x2:
         assert isinstance(duty, str), f"Expected each Duty to be of type string, but got {type(duty)}"
 
-    # Test each duty says what it is supposed to
+# Test each duty says what it is supposed to
+def test_duties_are_correct():
+
     expected_duties = [
         "Duty 1 Script and code in at least one general purpose language and at least one domain-specific language to orchestrate infrastructure, follow test driven development and ensure appropriate test coverage.", 
         "Duty 2 Initiate and facilitate knowledge sharing and technical collaboration with teams and individuals, with a focus on supporting development of team members.", 
@@ -26,6 +29,45 @@ def testIt():
         ]
     
     assert x2 == expected_duties
+
+# Test that the whole list of duties is displayed in the terminal
+
+def test_prints_all_duties_to_terminal(capsys):
+    go()
+    result = capsys.readouterr()
+    all_duties_output = result.out
+
+    for duty in x2:
+        assert duty in all_duties_output
+
+# Test that when user presses '1', the whole list of duties are displayed 
+
+def test_input_one_prints_duties(monkeypatch, capsys):
+    monkeypatch.setattr("builtins.input", lambda _: '1')
+
+    prompt_user_choice()
+
+    printed_output = capsys.readouterr().out
+
+    for duty in x2:
+        assert duty in printed_output
+
+# Test that when user presses any other key, nothing is displayed
+
+def test_input_not_one(monkeypatch, capsys):
+    monkeypatch.setattr("builtins.input", lambda _: '9')
+
+    prompt_user_choice()
+
+    printed_output = capsys.readouterr().out
+
+    for duty in x2:
+        assert duty not in printed_output
+
+
+
+
+
 
    
 
