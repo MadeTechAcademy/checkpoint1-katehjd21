@@ -1,12 +1,12 @@
-from themes import x2, go, prompt_user_choice
+from themes import duties_list, print_duties, write_duties_to_html, prompt_user_choice
 # Test number of duties is correct
 def test_length_of_duties():
-    assert len(x2)>10, f"Expected more than 10 duties in x2, but got {len(x2)}"
-    assert len(x2) == 13, f"Expected 13 duties in x2, but got {len(x2)}"
+    assert len(duties_list)>10, f"Expected more than 10 duties in x2, but got {len(duties_list)}"
+    assert len(duties_list) == 13, f"Expected 13 duties in x2, but got {len(duties_list)}"
 
 # Test each duty is of type string
 def test_duties_are_of_type_string():
-    for duty in x2:
+    for duty in duties_list:
         assert isinstance(duty, str), f"Expected each Duty to be of type string, but got {type(duty)}"
 
 # Test each duty says what it is supposed to
@@ -28,16 +28,16 @@ def test_duties_are_correct():
         "Duty 13 Accept ownership of changes; embody the DevOps culture of 'you build it, you run it', with a relentless focus on the user experience."
         ]
     
-    assert x2 == expected_duties
+    assert duties_list == expected_duties
 
 # Test that the whole list of duties is displayed in the terminal
 
 def test_prints_all_duties_to_terminal(capsys):
-    go()
+    print_duties()
     result = capsys.readouterr()
     all_duties_output = result.out
 
-    for duty in x2:
+    for duty in duties_list:
         assert duty in all_duties_output
 
 # Test that when user presses '1', the whole list of duties are displayed 
@@ -49,7 +49,7 @@ def test_input_one_prints_duties(monkeypatch, capsys):
 
     printed_output = capsys.readouterr().out
 
-    for duty in x2:
+    for duty in duties_list:
         assert duty in printed_output
 
 # Test that when user presses any other key, nothing is displayed
@@ -61,7 +61,7 @@ def test_input_not_one(monkeypatch, capsys):
 
     printed_output = capsys.readouterr().out
 
-    for duty in x2:
+    for duty in duties_list:
         assert duty not in printed_output
 
 
@@ -70,11 +70,11 @@ def test_input_not_one(monkeypatch, capsys):
 def test_all_duties_written_in_html_file(tmp_path):
     test_duties_file = tmp_path / "test_duties.html"
 
-    go(file_path=test_duties_file)
+    write_duties_to_html(file_path=test_duties_file)
 
     duties_file_content = test_duties_file.read_text()
 
-    for duty in x2:
+    for duty in duties_list:
         assert duty in duties_file_content
 
   

@@ -1,4 +1,4 @@
-x2 = [
+duties_list = [
     "Duty 1 Script and code in at least one general purpose language and at least one domain-specific language to orchestrate infrastructure, follow test driven development and ensure appropriate test coverage.",
     "Duty 2 Initiate and facilitate knowledge sharing and technical collaboration with teams and individuals, with a focus on supporting development of team members.",
     "Duty 3 Engage in productive pair/mob programming to underpin the practice of peer review.",
@@ -13,17 +13,36 @@ x2 = [
     "Duty 12 Look to automate any manual tasks that are repeated, often using APIs.",
     "Duty 13 Accept ownership of changes; embody the DevOps culture of 'you build it, you run it', with a relentless focus on the user experience.",
 ]#list of duties
-def go(file_path="duties.html"):
-     with open(file_path, "w") as duties_file:
-        for y in x2:
-            duties_file.write("<!DOCTYPE html>\n")
-            duties_file.write("<html>\n<head>\n<title>Apprenticeship Duties</title>\n</head>\n<body>\n")
-            duties_file.write("<h1>List of Apprenticeship Duties</h1>\n<ul>\n")
-            for duty in x2:
-                duties_file.write(f"  <li>{duty}</li>\n")
-            duties_file.write("</ul>\n</body>\n</html>")
-            print(f"Duties have been written to {file_path}.")
-            print("{0}\n".format(y))
+
+
+def print_duties():
+    for duty in duties_list:
+        print("{0}\n".format(duty))
+
+
+def write_duties_to_html(file_path="duties.html"):
+    duties_html = open(file_path, "w")
+
+    duties_html.write("""<html>
+<head>
+<title>Apprenticeship Duties</title>
+</head>
+<body>
+<header>
+<h1>Apprenticeship Duties</h1>
+</header>
+<ul>
+""")
+    for duty in duties_list:
+            duties_html.write(f"  <li>{duty}</li>\n")
+
+    duties_html.write("""</ul>
+</body>
+</html>
+""")
+
+    print(f"Duties have been written to {file_path}.")
+
 
 def prompt_user_choice():
     x = input("""
@@ -32,7 +51,8 @@ def prompt_user_choice():
     Enter your choice:
     """)
     if x == '1':
-        go()
+        print_duties()
+        write_duties_to_html()
 
 if __name__=="__main__":
     prompt_user_choice()
