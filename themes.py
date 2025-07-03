@@ -13,10 +13,11 @@ x2 = [
     "Duty 12 Look to automate any manual tasks that are repeated, often using APIs.",
     "Duty 13 Accept ownership of changes; embody the DevOps culture of 'you build it, you run it', with a relentless focus on the user experience.",
 ]#list of duties
-
-def go():
-    for y in x2:
-        print("{0}\n".format(y))
+def go(file_path="duties.txt"):
+     with open(file_path, "w") as duties_file:
+        for y in x2:
+            duties_file.write("{0}\n\n".format(y))
+            print(f"Duties have been written to {file_path}.")
 
 def prompt_user_choice():
     x = input("""
