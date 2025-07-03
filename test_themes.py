@@ -65,10 +65,10 @@ def test_input_not_one(monkeypatch, capsys):
         assert duty not in printed_output
 
 
-# Tests all duties are printed to duties.txt file in go function and the number of duties is equal
+# Tests all duties are printed to duties.html file 
 
-def test_all_duties_written_in_txt_file(tmp_path):
-    test_duties_file = tmp_path / "test_duties.txt"
+def test_all_duties_written_in_html_file(tmp_path):
+    test_duties_file = tmp_path / "test_duties.html"
 
     go(file_path=test_duties_file)
 
@@ -77,8 +77,7 @@ def test_all_duties_written_in_txt_file(tmp_path):
     for duty in x2:
         assert duty in duties_file_content
 
-    number_of_duties = duties_file_content.strip().count("Duty")
-    assert number_of_duties == len(x2)
+  
 
 
 

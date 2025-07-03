@@ -13,10 +13,15 @@ x2 = [
     "Duty 12 Look to automate any manual tasks that are repeated, often using APIs.",
     "Duty 13 Accept ownership of changes; embody the DevOps culture of 'you build it, you run it', with a relentless focus on the user experience.",
 ]#list of duties
-def go(file_path="duties.txt"):
+def go(file_path="duties.html"):
      with open(file_path, "w") as duties_file:
-        for y in x2[:-1]:
-            duties_file.write("{0}\n\n".format(y))
+        for y in x2:
+            duties_file.write("<!DOCTYPE html>\n")
+            duties_file.write("<html>\n<head>\n<title>Apprenticeship Duties</title>\n</head>\n<body>\n")
+            duties_file.write("<h1>List of Apprenticeship Duties</h1>\n<ul>\n")
+            for duty in x2:
+                duties_file.write(f"  <li>{duty}</li>\n")
+            duties_file.write("</ul>\n</body>\n</html>")
             print(f"Duties have been written to {file_path}.")
             print("{0}\n".format(y))
 
