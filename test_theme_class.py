@@ -1,8 +1,7 @@
 from ThemesClass import Theme
-from themes import duties_list
+from themes import duties_list, write_duties_to_html    
 
-
-
+# Testing get associated duties getter function
 def test_get_associated_duties_returns_correct_duties():
     theme = Theme("Test Theme", [1, 3, 5])
     associated_duties = theme.get_associated_duties(duties_list)
@@ -27,4 +26,25 @@ def test_get_associated_duties_returns_empty_list_if_no_matches():
     associated_duties = theme.get_associated_duties(duties_list)
     
     assert associated_duties == []
+
+# Testing correct duties and theme name is written to html file for specific theme
+def test_html_file_includes_correct_information(tmp_path):
+    test_theme = Theme("Test Theme", [4, 6, 8, 12])
+    associated_duties = test_theme.get_associated_duties(duties_list)
+    test_file_path = tmp_path / "test_file.html"
+
+    write_duties_to_html(associated_duties, file_path=test_file_path, theme_name=test_theme.name)
+
+    test_file_content = test_file_path.read_text()
+# Test h2 tag is in html file created with the correct theme
+    assert f"<h2>{test_theme.name}</h2>" in test_file_content
+
+# Test all associated duties are written to html file
+    for duty in associated_duties:
+        assert duty in test_file_content
+
+# Test that the number of list tags is equal to number of associated duties
+    assert test_file_content.count("<li>") == 4
+
+
 

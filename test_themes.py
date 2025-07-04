@@ -90,7 +90,9 @@ def test_write_duties_creates_correct_html_file(tmp_path):
     duties_html_content = test_duties_file.read_text()
 
 # Check html content structure 
-    assert "<html>" in duties_html_content
+    assert "<!DOCTYPE html>" in duties_html_content
+    assert "<html" in duties_html_content
+
 # Ensure unordered list has an opening and closing tag
     assert "<ul>" in duties_html_content
     assert "</ul>" in duties_html_content
