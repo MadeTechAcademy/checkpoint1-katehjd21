@@ -36,12 +36,22 @@ def test_html_file_includes_correct_information(tmp_path):
     write_duties_to_html(associated_duties, file_path=test_file_path, theme_name=test_theme.name)
 
     test_file_content = test_file_path.read_text()
+
+# Check html content structure 
+    assert "<!DOCTYPE html>" in test_file_content
+    assert "<html" in test_file_content
+
+# Ensure unordered list has an opening and closing tag
+    assert "<ul>" in test_file_content
+    assert "</ul>" in test_file_content
+
 # Test h2 tag is in html file created with the correct theme
     assert f"<h2>{test_theme.name}</h2>" in test_file_content
 
-# Test all associated duties are written to html file
+# Test all associated duties are written to html file and are in a list tag
     for duty in associated_duties:
         assert duty in test_file_content
+        assert f"<li>{duty}</li>" in test_file_content
 
 # Test that the number of list tags is equal to number of associated duties
     assert test_file_content.count("<li>") == 4
