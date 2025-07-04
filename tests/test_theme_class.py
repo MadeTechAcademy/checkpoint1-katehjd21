@@ -1,5 +1,6 @@
 from ThemesClass import Theme
-from themes import duties_list, write_duties_to_html    
+from themes import write_duties_to_html   
+from themes_data import duties_list 
 
 # Testing get associated duties getter function
 def test_get_associated_duties_returns_correct_duties():

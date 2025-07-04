@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apprenticeship Duties</title>
+</head>
+<body>
+    <header>
+        <h1>Apprenticeship Duties</h1>
+    </header>
+
+    {% if duties %}
+        {% if theme %}
+            <h2>{{ theme }}</h2>
+        {% endif %}
+
+        <ul>
+            {% for duty in duties %}
+                <li>{{ duty }}</li>
+            {% endfor %}
+        </ul>
+
+        <p><a href="/">Back to all themes</a></p>
+    {% else %}
+        <p><a href="/all">View all duties</a></p>
+        <p>Select a theme:</p>
+        <ul>
+            {% for key, theme_obj in themes.items() %}
+                <li><a href="/theme/{{ key }}">{{ theme_obj.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
+

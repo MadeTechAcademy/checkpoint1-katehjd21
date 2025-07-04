@@ -1,4 +1,5 @@
-from themes import duties_list, print_duties, write_duties_to_html, prompt_user_choice
+from themes import print_duties, write_duties_to_html, prompt_user_choice
+from themes_data import duties_list
 # Test number of duties is correct
 def test_length_of_duties():
     assert len(duties_list)>10, f"Expected more than 10 duties in x2, but got {len(duties_list)}"
@@ -96,6 +97,7 @@ def test_write_duties_creates_correct_html_file(tmp_path):
 # Ensure unordered list has an opening and closing tag
     assert "<ul>" in duties_html_content
     assert "</ul>" in duties_html_content
+
 # Check each duty appears in a list tag
     for duty in test_duties_list:
         assert f"<li>{duty}</li>" in duties_html_content
